@@ -62,16 +62,15 @@ const insertDocuments = function (db, callback) {
   });
 }
 
-const initialInsertDocuments = function (db, callback) {
+const initialInsertDocuments = function (initialArtists, callback) {
+  const db = client.db(dbName);                   // Get the db.
   const collection = db.collection('documents');  // Get the documents collection
 
-  collection.insertMany(artists, function (err, result) {   // Insert some documents
+  collection.insertMany(initialArtists, function (err, result) {   // Insert some documents
     assert.equal(err, null);
     assert.equal(3, result.result.n);
     assert.equal(3, result.ops.length);
-    
-    console.log("result ==", result);
-    callback(result);
+    callback();
   });
 }
 
@@ -168,12 +167,9 @@ client.connect(function (err) {
     console.log('API app started')      //это сработает при запуске сервера. Надпись появиться в консоле.
   })
 
-  const db = client.db(dbName);
-  initialInsertDocuments(db, function() {      //грузим в MongoDb изачальные данные
+  initialInsertDocuments(initialArtists, function() {      //грузим в MongoDb изачальные данные
     client.close();
   });
-  
-  
 });
 
 
@@ -181,7 +177,7 @@ client.connect(function (err) {
 #4. Декларируем в express'e его роуты и добавляем в них команды запуска избранных функций MongoDb.
 
 //Запрос на получения полных данных по определенному артисту- с именем "Kola".
-//Запрос http://localhost:80/artists/Kola
+//Запрос http://localhost:3012/artists/Kola
 
 app.get('/artists/:id', function (req, res) {    
   var artistMarker = {name: req.params.id};
@@ -206,6 +202,8 @@ app.get('/artists/:id', function (req, res) {
 #5. Запускаем MongoDb и express в 2 разных терминалах.
 >sudo systemctl start mongod    //из любого места
 >node server.js                 //находясь рядом с server.js, где задекларирован express.
+
+//обращение к серверу из броузера -  http://localhost:3012, в броузере увидим 'Hello API'.
 
 
 
