@@ -87,7 +87,8 @@ app.delete('/artists/:id', function (req, res) {
 // app.listen(3012, function () {
 //   console.log('API app started')     //это сработает при запуске сервера. Надпись появиться в консоле
 // })
-//
+
+
 //запуск сервера -  node server.js,
 //обращение к серверу из броузера -  http://localhost:3012, в броузере увидим 'Hello API'.
 
@@ -136,11 +137,9 @@ const findDocuments = function (db, callback) {
   const collection = db.collection('documents');
   
   // Find some documents
-  collection.find({}).toArray(function (err, docs) {
+  collection.find({"a": 1}).toArray(function (err, docs) {
     assert.equal(err, null);
-    
-    console.log("docs ==", docs);
-    callback(docs);
+    callback(docs);    //callback() задекларирована вторым аргументом при вызове findDocuments(), что имеет место в app.post().
   });
 }
 
