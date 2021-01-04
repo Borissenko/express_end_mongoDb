@@ -27,14 +27,25 @@ client.close();     //прекращение работы клиента. Раз
 db.peoples.find().sort({name: 1})     //use sort только после find() (!).
 
 
+//
+// Выборка с условными операторами:
+//   $eq - =
+//   $gt - >
+//   $lt - <
+//   $gte - >=
+//   $lte - <=
+//   $ne - <>
+//
+// Пример с двумя условиями больше и меньше указанных значений:
+// db.peoples.find({"address.index": {$gt : 111500, $lt : 111700}})
 
 
 
 
 
 
-
-
+//статья с выборкой команд
+//http://snakeproject.ru/rubric/article.php?art=mongodb_manual
 
 
 

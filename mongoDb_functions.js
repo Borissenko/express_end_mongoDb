@@ -6,7 +6,7 @@ export const insertDocuments = function (dd, callback) {
   const db = client.db(dbName);         //Это должно быть прописано именно в теле функции, а не заявлено на одном с ней уровне. (!)
   const collection = db.collection('documents');
   
-  collection.insertMany(dd, function (err, result) {    //dd = [{a: 1}, {a: 2}, {a: 3}]
+  collection.insertMany(dd, function (err, result) {    //dd = [{a: 1}, {a: 2}, {a: 3}], function(){} - это callback функция.
     assert.equal(err, null);
     callback(result);
   });
