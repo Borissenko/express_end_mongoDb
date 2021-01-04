@@ -359,6 +359,10 @@ export const removeIdItem = function (id, callback) {
 
 Создадим файл moduleServer.js вместо файла server.js, т.к. часть кода из него будет вынесено в отдельные файлы.
 
+Инициацию mongoDb вынесем в mongoDb/mongoClient.js.
+Функции вынесем в mongoDb/models/documents.js.
+Роуты express вынесем в mongoDb/controllers/documents.js.
+
 
 
 
