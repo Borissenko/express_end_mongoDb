@@ -71,11 +71,16 @@ app.put('/artist/:id', function (req, res) {  //обновление поля у
 
 //=MongoDB=
 //1. Connect to MongoDB
-const MongoClient = require('mongodb').MongoClient;
+// const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
-const dbName = 'myproject';
-const client = new MongoClient('mongodb://localhost:27017', {useNewUrlParser: true});
+// const dbName = 'myproject';
+// const client = new MongoClient('mongodb://localhost:27017', {useNewUrlParser: true});
+
+var mongoClient = require('./mongoDb/mongoClient');
+let client = mongoClient.buildClient()
+
+let dbName = 'myproject';
 
 
 //2. MongoDB methods.
