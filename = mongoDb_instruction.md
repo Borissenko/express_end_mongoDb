@@ -1,4 +1,4 @@
-## Подключение MongoDB.
+## Подключение MongoDB (version - 4.4).
 
 #1) Устанавливаем MongoDB на ноутбук, глобально.
 https://docs.mongodb.com/guides/server/install/
@@ -31,7 +31,7 @@ MongoDB имеет 2 разновидности: Community and Enterprise(пре
 >npm install mongodb --save
 
 
-#1. Подсоединяем проект к MongoDB, установленной на ноутбуке, via MongoClient.
+#1. Подсоединяем проект к MongoDB, которая установлена на ноутбуке. Подсоединяем via MongoClient.
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
@@ -40,7 +40,9 @@ const client = new MongoClient('mongodb://localhost:27017', {useNewUrlParser: tr
 
 //Порт localhost:27017 - всегда стандартный.
 
-#2. Описываем необходимые нам манипуляции с данными из db.
+
+
+#2. Описываем необходимые нам манипуляции с данными db.
 http://mongodb.github.io/node-mongodb-native/3.4/quick-start/quick-start/   //<==
 http://mongodb.github.io/node-mongodb-native/3.4/tutorials/collations/
 
@@ -103,7 +105,7 @@ client.connect(function (err) {
 
 app.get('/all_artists', function (req, RES) {
   findAllDocuments(null, function (docs) {
-  RES.send(docs);
+    RES.send(docs);
   });
 })
 
@@ -137,6 +139,41 @@ body - не используем.
 
 //обращение к серверу из броузера -  http://localhost:3012, 
 //в броузере увидим 'Hello API'.
+
+
+
+
+#6. Разбиваем MongoDb на несколько файлов.
+//db.js - его будем импортировать в mainMongoDb.js
+//Здесь мы заявляем client'a.
+//Это позволяет быть тому, чтобы client.connect был синглтоном.
+
+//Здесь я код не причесывал.
+
+var state = {
+  db: null
+};
+
+exports.get = function () {
+  return state.db;
+}
+
+
+//mainMongoDb.js
+var db = require('./db');
+
+let aa = db.get()
+
+
+
+
+
+
+
+
+
+
+
 
 
 
