@@ -70,75 +70,49 @@ app.put('/artist/:id', function (req, res) {  //обновление поля у
 })
 
 //=MongoDB=
-//1. Connect to MongoDB
-// const MongoClient = require('mongodb').MongoClient;
+//1. Preparations.
 const assert = require('assert');
-
-// const dbName = 'myproject';
-// const client = new MongoClient('mongodb://localhost:27017', {useNewUrlParser: true});
-
 var mongoClient = require('./mongoDb/mongoClient');
-let client = mongoClient.buildClient()
-
-let dbName = 'myproject';
-
+const dbName = 'myproject'
 
 //2. MongoDB methods.
 const initialInsertDocuments = function (initialArtists, callback) {
-  const db = client.db(dbName);
-  const collection = db.collection('documents');
-  
-  collection.insertMany(initialArtists, function (err, result) {   // Insert some documents
+  mongoClient.callCollection(dbName, 'documents').insertMany(initialArtists, function (err, result) {   // Insert some documents
     assert.equal(err, null);
     callback();
   });
 }
 
 const findAllDocuments = function (dd, callback) {     //dd здесь не востребовано.
-  const db = client.db(dbName);
-  const collection = db.collection('documents');
-  
-  collection.find({}).toArray(function (err, docs) {
+  mongoClient.callCollection(dbName, 'documents').find({}).toArray(function (err, docs) {
     assert.equal(err, null);
     callback(docs);
   });
 }
 
 const findDocuments = function (artistMarker, callback) {
-  const db = client.db(dbName);
-  const collection = db.collection('documents');
-  
-  collection.find(artistMarker).toArray(function (err, docs) {
+  mongoClient.callCollection(dbName, 'documents').find(artistMarker).toArray(function (err, docs) {
     assert.equal(err, null);
     callback(docs);    //callback() задекларирован вторым аргументом при вызове findDocuments(), что прописан в app.get('/artists/:id', ...).
   });                  //docs - [] со всеми item, у которых есть поле по типу artistMarker.
 }
 
 const findOne = function (id, callback) {
-  const db = client.db(dbName);
-  const collection = db.collection('documents');
-  
-  collection.findOne({ _id: ObjectID(id) }, function (err, doc) {
+  mongoClient.callCollection(dbName, 'documents').findOne({ _id: ObjectID(id) }, function (err, doc) {
     assert.equal(err, null);
     callback(doc);
   });
 }
 
 const updateDocument = function (body, callback) {
-  const db = client.db(dbName);
-  const collection = db.collection('documents');
-  
-  collection.updateMany(body[0], {$set: body[1]}, function (err, docs) {
+  mongoClient.callCollection(dbName, 'documents').updateMany(body[0], {$set: body[1]}, function (err, docs) {
     assert.equal(err, null);
     callback(docs);
   });
 }
 
 const updateOneId = function (dd, callback) {
-  const db = client.db(dbName);
-  const collection = db.collection('documents');
-  
-  collection.updateOne({ _id: ObjectID(dd[0])}, {$set: dd[1]}, function (err, result) {     //dd[0] = id, dd[1] = {"a": 2020202}
+  mongoClient.callCollection(dbName, 'documents').updateOne({ _id: ObjectID(dd[0])}, {$set: dd[1]}, function (err, result) {     //dd[0] = id, dd[1] = {"a": 2020202}
     assert.equal(err, null);
     assert.equal(1, result.result.n);
     console.log("Updated result ==>", result.result);  // { n: 1, nModified: 0, ok: 1 }
@@ -148,7 +122,7 @@ const updateOneId = function (dd, callback) {
 
 
 //3. Загруз в db начальных данных и запуск просушивания портов by сервером.
-client.connect(function (err) {
+mongoClient.buildClient().connect(function (err) {
   assert.equal(null, err);
   console.log("= MongoDb connected to server successfully");
   
