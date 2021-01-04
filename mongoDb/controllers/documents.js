@@ -1,4 +1,5 @@
 //Это функции, вызываемые роутами.
+//имя файла - по имени коллекции в данной базе данных.
 var docModels = require('../models/documents')
 
 exports.findAllDocuments = function (req, res) {   //это выведется в броузере при http://localhost:3012

@@ -1,13 +1,14 @@
 ## Подключение MongoDB (version - 4.4).
+https://docs.mongodb.com/manual/
+https://metanit.com/nosql/mongodb/ - похоже неплохо написано.
 
 #1) Устанавливаем MongoDB на ноутбук, глобально.
 https://docs.mongodb.com/guides/server/install/
 http://mongodb.github.io/node-mongodb-native/3.4/quick-start/quick-start/
 
 MongoDB имеет 2 разновидности: Community and Enterprise(предприятие).
-
-Для личного пользования на Убунте установка описана здесь:
-  https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+Установка Community-разновидности на Убунту описана здесь:
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 
 Далее запускаем mongodb-сервер. Пока он запущен, датабаза - существует. (Вранье)
 Поэтому express и mongodb мы должны запускать параллельно в разных вкладках консоли,

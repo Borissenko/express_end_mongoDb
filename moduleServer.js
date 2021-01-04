@@ -31,6 +31,8 @@ mongoClient.buildClient().connect(function (err) {
     console.log('=initial_documents_is_inserted')
   })
   
+  console.log('')
+  
   app.listen(3012, function () {                   //запускаем прослушивание express'a, причем ПОСЛЕ соединения с db.
     console.log('=express_listening_is_started')      //это сработает при запуске сервера. Надпись появиться в консоле.
   })

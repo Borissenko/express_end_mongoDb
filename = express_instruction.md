@@ -106,17 +106,18 @@ https://identity.getpostman.com/signup?continue=https%3A%2F%2Fgo.postman.co%2Fbu
 вэб-версия, не работает -https://web.postman.co/workspace/ea26f38d-0be3-44c2-8faa-802a0e9bb9d2/request/create?requestId=2820876a-37b9-4fbf-ba75-a9b059ae0cad
 Как пользоваться - https://losst.ru/kak-polzovatsya-postman
 
-Установка Postman'a:
+Установка Postman'a на ноутбук:
 $ sudo apt update
 $ sudo apt install snapd
 $ sudo snap install postman
 
-Далее запускаю через иконку, которая появиться среди всех прогремм Убунты,
+Далее запускаю через иконку, которая появиться среди всех программ Убунты,
 захожу в свой аккаунт через Google
 https://identity.getpostman.com/signup?continue=https%3A%2F%2Fgo.postman.co%2Fbuild
 
-В нем мы указываем наш адрес http://localhost:3012/artists
+В нем мы указываем:
 тип запроса - POST
+наш адрес - http://localhost:3012/artists
 В закладке body включаем раздел row  и тип вводимого - JSON.
 Для тела запроса прописываем
 {"name": "Kola"}
@@ -355,7 +356,7 @@ export const removeIdItem = function (id, callback) {
 
 
 
-#7. Сегментируем код mongoDb с добавлением моделей и контроллеров. (лек 6)
+#7. Сегментируем код mongoDb с добавлением моделей(функции для работы с db) и контроллеров(функции для роутов). (лек 6)
 
 Создадим файл moduleServer.js вместо файла server.js, т.к. часть кода из него будет вынесено в отдельные файлы.
 
@@ -363,6 +364,11 @@ export const removeIdItem = function (id, callback) {
 Функции вынесем в mongoDb/models/documents.js.
 Роуты express вынесем в mongoDb/controllers/documents.js.
 
+Теперь запускаем проект так:
+> sudo systemctl start mongod
+> sudo systemctl status mongod
+
+> node moduleServer.js
 
 
 
