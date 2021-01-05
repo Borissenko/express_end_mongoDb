@@ -8,9 +8,11 @@ assert.equal(3, result.ops.length);  //collection.insertMany([{a: 1}, {a: 2}, {a
 //   Функция assert.equal() сравнивает два значения. Если они не равны, то генерируется ошибка.
 
 //Вместо assert.equal(err, null) ошибку можно обрабатывать по-старому:
-if (err) {
-  console.log(err);
-  return res.sendStatus(500);   //важно написать return, что бы код не шел дальше.
+function f() {
+  if (err) {
+    console.log(err);
+    return res.sendStatus(500);   //важно написать return, что бы код не шел дальше.
+  }
 }
 
 
