@@ -7,7 +7,7 @@ assert.equal(3, result.ops.length);  //collection.insertMany([{a: 1}, {a: 2}, {a
 //   Специально чтобы упростить верификацию результатов в тестах для Node.js был создан специальный модуль - assert.
 //   Функция assert.equal() сравнивает два значения. Если они не равны, то генерируется ошибка.
 
-//Вместо assert.equal(err, null) ошибку можно обрабатывать по-старому:
+//Вместо assert.equal(err, null) ошибку можно обрабатывать по-старому, используя if(error):
 function f() {
   if (err) {
     console.log(err);

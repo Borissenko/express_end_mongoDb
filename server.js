@@ -1,3 +1,5 @@
+//express-сервер с mongoDb (без mongoose) в ОДНОМ файле.
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var ObjectID = require('mongodb').ObjectID

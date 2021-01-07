@@ -1,10 +1,12 @@
+//express-сервер с mongoDb (без mongoose), РАЗНЕСЕННЫЙ по отдельным файлам.
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const assert = require('assert');
-const mongoClient = require('./mongoDb/mongoClient');
-const docModels = require('./mongoDb/models/documents');
-const docControllers = require('./mongoDb/controllers/documents');
-const initialData = require('./mongoDb/initialData');
+const mongoClient = require('./mongoDb_utils/mongoClient');
+const docModels = require('./mongoDb_utils/models/documents');
+const docControllers = require('./mongoDb_utils/controllers/documents');
+const initialData = require('./mongoDb_utils/initialData');
 
 
 //=СЕРВЕР=
