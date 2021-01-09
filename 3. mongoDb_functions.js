@@ -175,7 +175,7 @@ find().sort().toArray()
 findOneAndUpdate() // ??? Because Gunter is lexically first in the collection, the above operation returns no(!) results and updates no documents.
 findOneAndDelete()
 
-
+db.collectionName.count();    //Подсчет записей в коллекции
 
 
 
