@@ -11,6 +11,17 @@ var KittenSchema = mongoose.Schema({
     type: Date,
     default: Date.now  //default значение
   },
+  created_2: {
+    type: [{
+      uploaded: {
+        type: Date,
+        default: Date.now
+      },
+      src: String
+    }],
+    // значение по-умолчанию для поля images
+    default: [{uploaded: new Date(2012, 11, 22), src: '/img/default.png'}]
+  },
   facebook: {
     type: String,
     validate: {       //валидция при сохранении в db.

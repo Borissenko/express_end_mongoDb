@@ -1,8 +1,11 @@
-//имя файла - по имени коллекции в данной базе данных
+//На сервере используем mongodb, а не mongoose.
+//Здесь описаны функции mongodb, которые далее будут использоваться в контроллерах.
+//Имя файла - по имени коллекции в данной базе данных.
 //К слову, база данных тоже имеет свое имя - const dbName = 'myproject'.
 const assert = require('assert');
 var ObjectID = require('mongodb').ObjectID
 var mongoClient = require('../mongoClient');
+
 const dbName = 'myproject'
 
 exports.initialInsertDocuments = function (initialArtists, callback) {

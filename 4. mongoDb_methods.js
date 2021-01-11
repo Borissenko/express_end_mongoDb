@@ -1,5 +1,7 @@
 
 //1.
+const assert = require('assert');
+
 assert.equal(err, null);
 assert.equal(3, result.result.n);
 assert.equal(3, result.ops.length);  //collection.insertMany([{a: 1}, {a: 2}, {a: 3}], ...), result.ops.length = [{a: 1}, {a: 2}, {a: 3}].length
