@@ -1,4 +1,4 @@
-
+//A
 var KittenSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,  //id схемы. Это поле прописывать в схеме нет нужды.
   name: {
@@ -39,12 +39,30 @@ var KittenSchema = mongoose.Schema({
   ],
   owner: {
     type: mongoose.Schema.Types.ObjectId,   //ВЛОЖЕНИЕ другой СХЕМЫ. Здесь будет _id второй схемы.
-    ref: 'owner' //зачем?
+    ref: 'Person' //*
   },
+});
+
+//*ref - название МОДЕЛИ, на  которую мы ссылаемся.
+// схема относится только к одной модели и Person является моделью PersonSchema.
+
+
+
+
+
+//B. Вложенная схема.
+//https://mongoosejs.com/docs/subdocs.html
+const childSchema = new Schema({ name: 'string' });  //должна быть задекларирована ВЫШЕ(!).
+
+const parentSchema = new Schema({
+  children: [childSchema],  // Array of subdocuments
+  child: childSchema  // Single nested subdocuments.
 });
 
 
 
+
+//C.
 //создаем модель на основе схемы
 const KittenModel = mongoose.model('Kitten', kittySchema);
 

@@ -1,6 +1,7 @@
 // http://mongodb.github.io/node-mongodb-native/3.4/quick-start/quick-start/   //<==
 // http://mongodb.github.io/node-mongodb-native/3.4/tutorials/collations/      // collection.functions
 
+const assert = require('assert');  //см. пояснения в 4.mongoDb_methods.js.
 
 export const insertDocuments = function (dd, callback) {
   const db = client.db(dbName);         //Это должно быть прописано именно в теле функции, а не заявлено на одном с ней уровне. (!)
@@ -11,6 +12,12 @@ export const insertDocuments = function (dd, callback) {
     callback(result);
   });
 }
+
+
+// Для загузки файла в текущую базу данных применяется функция load(), в которую в качестве параметра передается путь к файлу:
+ load("D:/users.js")
+
+
 
 export const insertOneDocument = function (dd, callback) {
   const db = client.db(dbName);
