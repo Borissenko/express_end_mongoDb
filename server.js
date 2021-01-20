@@ -25,48 +25,48 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //роуты сервера
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
   // res.send('Hello API');            //это выведется в броузере при http://localhost:3012
   
-  findAllDocuments(null, function (docs) {
+  await findAllDocuments(null, function (docs) {
     res.send(docs);
   });
 });
 
-app.get('/all_artists', function (req, res) {
-  findAllDocuments(null, function (docs) {
+app.get('/all_artists', async function (req, res) {
+  await findAllDocuments(null, function (docs) {
     res.send(docs);
   });
 })
 
 //нельзя существовать роуту app.get('/artists', ...) вместе с роутом app.get('/artists/:id', ...). Перетирают один другого.
 
-app.get('/artists/:id', function (req, res) {    //получение отфильтрованных членов, которые имеют поле {name: req.params.id}.
+app.get('/artists/:id', async function (req, res) {    //получение отфильтрованных членов, которые имеют поле {name: req.params.id}.
   var artistMarker = {name: req.params.id};
 
-  findDocuments(artistMarker, function (docs) {
+  await findDocuments(artistMarker, function (docs) {
     res.send(docs);
   });
 })
 
-app.get('/artist/:id', function (req, RES) {    //получение данных по члену с конкретным id.
+app.get('/artist/:id', async function (req, RES) {    //получение данных по члену с конкретным id.
   let id = req.params.id;
   
-  findOne(id, function (doc) {
+  await findOne(id, function (doc) {
     RES.send(doc);
   });
 })
 
-app.put('/artists', function (req, res) {
-  updateDocument(req.body, function (docs) {
+app.put('/artists', async function (req, res) {
+  await updateDocument(req.body, function (docs) {
     res.send(docs);  //или res.sendStatus(200)
   });
 })
 
-app.put('/artist/:id', function (req, res) {  //обновление поля у конкретного по id члена.
+app.put('/artist/:id', async function (req, res) {  //обновление поля у конкретного по id члена.
   let dd = [req.params.id, req.body]
   
-  updateOneId(dd, function (result) {
+  await updateOneId(dd, function (result) {
     res.sendStatus(200);         //возвращаем подтверждение, что все прошло успешно. Обратно на фронт в теле ответа придет "OK".
   });
 })
