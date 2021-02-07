@@ -77,16 +77,18 @@ let KittenInstance = new KittenModel({
 KittenInstance._id instanceof mongoose.Types.ObjectId; // true.  _id добавлено автоматически.
 
 
-//экспортируем модель наружу
+
+
+
+
+
+//D. Пример экспорта
+const KittenModel = new Schema({ name: String, email: String });
+
 module.exports = KittenModel;
 
 //импортируем модель
 var KittenModel = require('./schemas_models');
-
-
-
-
-
 
 
 
