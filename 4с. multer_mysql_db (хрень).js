@@ -1,3 +1,6 @@
+//Сохранение ФАЙЛОВ и в multer.diskStorage, и в mysql_db
+//Причем Считка - только из mysql_db.   ))
+
 //https://github.com/deveshmishra34/Upload-multiple-images-with-multer/blob/master/app.js
 
 const express = require("express");
@@ -17,6 +20,8 @@ app.use(function (req, res, next) {
   next();
 });
 
+
+//Инициируем diskStorage_db.
 var Storage = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, "./public/uploads");
@@ -29,6 +34,9 @@ var Storage = multer.diskStorage({
 
 var upload = multer({ storage: Storage });
 
+
+
+//Инициируем mysql_db. Зачем и то, и то? Две db?
 var db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -42,11 +50,10 @@ db.connect( (err) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("You're at wrong place...");
+  res.send("You're at a wrong place...");
 });
 
 app.post("/feedback", (req, res) => {
-  console.log(req.body);
   let sql = "INSERT INTO feedback SET ?";
   let query = db.query(sql, req.body, (err, result) => {
     if (err) throw err;
@@ -54,14 +61,12 @@ app.post("/feedback", (req, res) => {
   });
 });
 
-// insert data
+// insert data В ДВА(!) места(???). Зачем?
 app.post("/insertData", upload.any("images"), (req, res) => {
   let images = [];
   req.files.forEach( (value) => {
     images.push(value.filename);
   });
-  console.log(images);
-  console.log(JSON.stringify(images));
   
   let data = {
     text : req.body.text,
@@ -80,57 +85,57 @@ app.post("/insertData", upload.any("images"), (req, res) => {
 
 
 // read data
-// app.get("/readData", (req, res) => {
-//     let sql = "SELECT * FROM businessmodule";
+app.get("/readData", (req, res) => {
+    let sql = "SELECT * FROM businessmodule";
 
-//     let query = db.query(sql, (err, result) => {
-//         if(err) throw err;
-//         res.json(result);
-//         console.log(result)
-//     });
-// });
+    let query = db.query(sql, (err, result) => {
+        if(err) throw err;
+        res.json(result);
+        console.log(result)
+    });
+});
 
 // read single row
-// app.get("/readData/:id", (req, res) => {
-//     let sql = `SELECT * FROM businessmodule WHERE id = ${req.params.id}`;
+app.get("/readData/:id", (req, res) => {
+    let sql = `SELECT * FROM businessmodule WHERE id = ${req.params.id}`;
 
-//     let query = db.query(sql, (err, result) => {
-//         if (err) throw err;
-//         res.json(result);
-//         console.log(result)
-//     });
-// });
+    let query = db.query(sql, (err, result) => {
+        if (err) throw err;
+        res.json(result);
+        console.log(result)
+    });
+});
 
 // update data
-// app.get("/updateData/:id", (req, res) => {
-//     let newText = "This is some new text";
-//     let sql = `UPDATE businessmodule SET text = '${newText}' WHERE id= ${req.params.id}`;
-//     let query = db.query(sql, (err, result) => {
-//         if(err) throw err;
-//         res.json(result);
-//         console.log(result)
-//     });
-// });
+app.get("/updateData/:id", (req, res) => {
+    let newText = "This is some new text";
+    let sql = `UPDATE businessmodule SET text = '${newText}' WHERE id= ${req.params.id}`;
+    let query = db.query(sql, (err, result) => {
+        if(err) throw err;
+        res.json(result);
+        console.log(result)
+    });
+});
 
 // delete data
-// app.get("/deleteData/:id", (req, res) => {
-//     let sql = `DELETE FROM businessmodule WHERE id = ${req.params.id}`;
+app.get("/deleteData/:id", (req, res) => {
+    let sql = `DELETE FROM businessmodule WHERE id = ${req.params.id}`;
 
-//     let query = db.query(sql, (err, result) => {
-//         if(err) throw err;
-//         res.json(result);
-//         console.log(result);
-//     });
-// });
+    let query = db.query(sql, (err, result) => {
+        if(err) throw err;
+        res.json(result);
+        console.log(result);
+    });
+});
 
-// app.post("/upload_file", (req, res) => {
-//     upload(req, res, (err) => {
-//         if(err) throw err;
-//         console.log(req.files);
-//         console.log(req.body);
-//         res.json("File uploaded successfully");
-//     });
-// });
+app.post("/upload_file", (req, res) => {
+    upload(req, res, (err) => {
+        if(err) throw err;
+        console.log(req.files);
+        console.log(req.body);
+        res.json("File uploaded successfully");
+    });
+});
 
 app.listen(3000, () => {
   console.log("Server listening at 3000...");
