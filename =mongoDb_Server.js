@@ -49,11 +49,11 @@ app.get('/artists/:id', async function (req, res) {    //получение от
   });
 })
 
-app.get('/artist/:id', async function (req, RES) {    //получение данных по члену с конкретным id.
+app.get('/artist/:id', async function (req, res) {    //получение данных по члену с конкретным id.
   let id = req.params.id;
   
   await findOne(id, function (doc) {
-    RES.send(doc);
+    res.send(doc);
   });
 })
 

@@ -4,8 +4,13 @@ var KittenSchema = mongoose.Schema({
   name: {
     firstName: {
       type: String,
-      required: true   // будет ошибка, если не укажем
-    }
+      required: true,   // будет ошибка, если не укажем,
+                        //все поля в схеме являются необязательными по умолчанию
+      required: function () {                //обязательность присуждаем через функцию.
+        return this.email ? true : false     //значение this.email забираем ниже.
+      }
+    },
+    email: String
   },
   created: {
     type: Date,
