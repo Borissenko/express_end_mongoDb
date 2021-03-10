@@ -12,9 +12,9 @@ var KittenSchema = mongoose.Schema({
     },
     email: String
   },
-  created: {
+  createdAt: {
     type: Date,
-    default: Date.now  //default значение
+    default: Date.now()  //default значение
   },
   created_2: {
     type: [{
