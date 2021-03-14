@@ -1,4 +1,4 @@
-//A
+//A Создаем СХЕМУ.
 var KittenSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,  //id схемы. Это поле прописывать в схеме нет нужды.
   name: {
@@ -68,7 +68,7 @@ const parentSchema = new Schema({
 
 
 //C.
-//создаем модель на основе схемы
+//создаем МОДЕЛЬ на основе схемы
 const KittenModel = mongoose.model('Kitten', kittySchema);
 
 //создаем документ как экземпляр модели
