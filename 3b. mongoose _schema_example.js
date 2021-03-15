@@ -5,7 +5,7 @@ var KittenSchema = mongoose.Schema({
     firstName: {
       type: String,
       required: true,   // будет ошибка, если не укажем,
-                        //все поля в схеме являются необязательными по умолчанию
+                        //все поля в схеме являются НЕОБЯЗАТЕЛЬНЫМИ по УМОЛЧАНИЮ (!).
       required: function () {                //обязательность присуждаем через функцию.
         return this.email ? true : false     //значение this.email забираем ниже.
       }
@@ -29,7 +29,7 @@ var KittenSchema = mongoose.Schema({
   },
   facebook: {
     type: String,
-    validate: {       //валидция при сохранении в db.
+    validate: {       //валидация при сохранении в db.
       validator: function(text) {
         return text.indexOf('https://www.facebook.com/') === 0;  //в начале строчки д.б. сегмент 'https://www.facebook.com/'.
       },
@@ -44,12 +44,12 @@ var KittenSchema = mongoose.Schema({
   ],
   owner: {
     type: mongoose.Schema.Types.ObjectId,   //ВЛОЖЕНИЕ другой СХЕМЫ. Здесь будет _id второй схемы.
-    ref: 'Person' //*
+    ref: 'PersonModel'                           //* объяснение см на строчку ниже.
   },
 });
 
 //*ref - название МОДЕЛИ, на  которую мы ссылаемся.
-// схема относится только к одной модели и Person является моделью PersonSchema.
+//схема относится только к одной модели и PersonModel является моделью PersonSchema.
 
 
 
@@ -60,8 +60,8 @@ var KittenSchema = mongoose.Schema({
 const childSchema = new Schema({ name: 'string' });  //должна быть задекларирована ВЫШЕ(!).
 
 const parentSchema = new Schema({
-  children: [childSchema],  // Array of subdocuments
-  child: childSchema  // Single nested subdocuments.
+  children: [childSchema],          // Array of subdocuments
+  child: childSchema              // Single nested subdocuments.
 });
 
 
@@ -73,13 +73,13 @@ const KittenModel = mongoose.model('Kitten', kittySchema);
 
 //создаем документ как экземпляр модели
 let KittenInstance = new KittenModel({
-  _id: 25, //_id добавляется автоматически, но мы его можем здесь переопределить.
+  _id: 25,    //_id добавляется автоматически, но мы его можем здесь переопределить.
   name: 'Silence',
   biography: 'Jamie is the author of ASP.NET MVC 5 with Bootstrap and Knockout.js.',
   twitter: 'https://twitter.com/endyourif',
 });
 
-KittenInstance._id instanceof mongoose.Types.ObjectId; // true.  _id добавлено автоматически.
+KittenInstance._id instanceof mongoose.Types.ObjectId;    // дает true.  _id добавлено автоматически.
 
 
 
@@ -87,7 +87,7 @@ KittenInstance._id instanceof mongoose.Types.ObjectId; // true.  _id добав�
 
 
 
-//D. Пример экспорта
+//D. Пример декларации экспорта.
 const KittenModel = new Schema({ name: String, email: String });
 
 module.exports = KittenModel;
